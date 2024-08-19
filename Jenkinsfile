@@ -5,7 +5,7 @@ pipleline{
         stage('Checkout') {
             steps {
                 // Checkout code from version control
-                git url: 'https://github.com/JothiShivani/maven-simple.git', branch: 'master'
+                git 'https://github.com/JothiShivani/maven-simple.git'
             }
         }
         stage('Clean') {
