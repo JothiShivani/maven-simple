@@ -1,4 +1,4 @@
-pipleline{
+pipeline{
     agent any
 
     stages {
@@ -39,12 +39,7 @@ pipleline{
             }
         }
 
-        stage('Deploy') {
-            steps {
-                // Deploy the application to a remote repository or server
-                sh 'mvn deploy'
-            }
-        }
+        
     }
 
 
