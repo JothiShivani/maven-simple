@@ -35,7 +35,8 @@ pipeline{
         stage('Install') {
             steps {
                 // Install the package into the local Maven repository
-                sh 'mvn install'
+                bat 'mvn verify'
+                bat 'mvn install'
             }
         }
 
