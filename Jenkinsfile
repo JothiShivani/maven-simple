@@ -60,6 +60,7 @@ pipeline {
     agent any
     
     environment {
+        DOCKER_IMAGE= "my-maven-app"
         DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
     }
 
@@ -82,17 +83,28 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image using the Dockerfile
-                    def image = docker.build("${env.DOCKER_HUB_CREDENTIALS_USR}/hello-app:latest")
+                //   --> //def image = docker.build("${env.DOCKER_HUB_CREDENTIALS_USR}/hello-app:latest")
+                    bat 'docker build -t %DOCKER_IMAGE% .'
                 }
             }
         }
         
+        // stage('Push Docker Image') {
+        //     steps {
+        //         script {
+        //             docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+        //                 def image = docker.build("${env.DOCKER_HUB_CREDENTIALS_USR}/hello-app:latest")
+        //                 image.push()
+        //             }
+        //         }
+        //     }
+        // }
         stage('Push Docker Image') {
             steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-                        def image = docker.build("${env.DOCKER_HUB_CREDENTIALS_USR}/hello-app:latest")
-                        image.push()
+                script{
+                    withDockerRegistry([url: "https://index.docker.io/v1/", credentialsId:DOCKER_HUB_CREDENTIALS ]){
+                        bat 'docker tag %DOCKER_IMAGE% jothishivani/%DOCKER_IMAGE%'
+                        bat 'docker push jothishivani/%DOCKER_IMAGE%'
                     }
                 }
             }
