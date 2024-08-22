@@ -130,7 +130,7 @@ pipeline {
         DOCKER_HUB_CREDENTIALS = 'docker-hub-credentials'  // Use the correct credentials ID
         //scannerHome = tool 'SonarQube Scanner';
         SONAR_TOKEN = '4151a4ab60add91278cab823577ffd2f13f14fac'
-        scannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+        //scannerHome = tool name: 'SonarQube Scanner';
     }
 
     stages {
@@ -150,7 +150,7 @@ pipeline {
         stage('Run SonarCloud') {
         
             steps {
-            withSonarQubeEnv('SonarCloud') {
+            withSonarQubeEnv(installationName: 'sonarcloud') {
                 bat "${scannerHome}/bin/sonar-scanner \
                 -Dsonar.projectKey=JothiShivani_maven-simple \
                 -Dsonar.organization=jothishivani \
