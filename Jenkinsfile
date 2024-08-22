@@ -150,7 +150,7 @@ pipeline {
         stage('Run SonarCloud') {
         
             steps {
-            withSonarQubeEnv(installationName: 'sonarcloud') {
+            withSonarQubeEnv(installationName: 'sonarqube') {
                 bat "${scannerHome}/bin/sonar-scanner \
                 -Dsonar.projectKey=JothiShivani_maven-simple \
                 -Dsonar.organization=jothishivani \
