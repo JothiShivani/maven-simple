@@ -165,6 +165,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image using the Dockerfile
+                    bat 'cd..'
                     bat 'docker build -t %DOCKER_IMAGE% .'
                 }
             }
