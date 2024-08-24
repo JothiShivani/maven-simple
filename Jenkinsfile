@@ -149,12 +149,13 @@ pipeline {
         
         stage('Run SonarCloud') {
             steps {
-                withSonarQubeEnv('SonarQube Scanner') {
-                    bat "${scannerHome}/bin/sonar-scanner \
-                    -Dsonar.projectKey=JothiShivani_maven-simple \
-                    -Dsonar.organization=jothishivani \
-                    -Dsonar.host.url=https://sonarcloud.io \
-                    -Dsonar.login=${SONAR_TOKEN}"
+                withSonarQubeEnv() {
+                //    bat "${scannerHome}/bin/sonar-scanner \
+                //     -Dsonar.projectKey=JothiShivani_maven-simple \
+                //     -Dsonar.organization=jothishivani \
+                //     -Dsonar.host.url=https://sonarcloud.io \
+                //     -Dsonar.login=${SONAR_TOKEN}"
+                bat "./mvnw sonar"
                 }
             }
         }
