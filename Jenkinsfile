@@ -126,11 +126,10 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_IMAGE= "my-maven-app"
+        DOCKER_IMAGE = "my-maven-app"
         DOCKER_HUB_CREDENTIALS = 'docker-hub-credentials'  // Use the correct credentials ID
-        //scannerHome = tool 'SonarQube Scanner';
+        scannerHome = tool 'SonarQube Scanner'
         SONAR_TOKEN = '4151a4ab60add91278cab823577ffd2f13f14fac'
-        //scannerHome = tool name: 'SonarQube Scanner';
     }
 
     stages {
@@ -147,19 +146,18 @@ pipeline {
                 bat 'mvn clean install'
             }
         }
-        stage('Run SonarCloud') {
         
+        stage('Run SonarCloud') {
             steps {
-            withSonarQubeEnv() {
-                bat "${scannerHome}/bin/sonar-scanner \
-                -Dsonar.projectKey=JothiShivani_maven-simple \
-                -Dsonar.organization=jothishivani \
-                -Dsonar.host.url=https://sonarcloud.io \
-                -Dsonar.login=${SONAR_TOKEN}"
-             }
+                withSonarQubeEnv('SonarQube') {
+                    bat "${scannerHome}/bin/sonar-scanner \
+                    -Dsonar.projectKey=JothiShivani_maven-simple \
+                    -Dsonar.organization=jothishivani \
+                    -Dsonar.host.url=https://sonarcloud.io \
+                    -Dsonar.login=${SONAR_TOKEN}"
+                }
+            }
         }
-    }
-
         
         stage('Build Docker Image') {
             steps {
