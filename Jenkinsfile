@@ -155,7 +155,7 @@ pipeline {
                 //     -Dsonar.organization=jothishivani \
                 //     -Dsonar.host.url=https://sonarcloud.io \
                 //     -Dsonar.login=${SONAR_TOKEN}"
-                bat "${scannerHome}"
+                bat "C:\windows\System32\config\systemprofile\AppData\Local\Jenkins\.jenkins\tools\hudson.plugins.sonar.SonarRunnerInstallation\SonarQube_Scanner\bin\sonar-scanner"
                 }
             }
         }
