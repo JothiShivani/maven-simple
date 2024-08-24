@@ -155,7 +155,13 @@ pipeline {
                 //     -Dsonar.organization=jothishivani \
                 //     -Dsonar.host.url=https://sonarcloud.io \
                 //     -Dsonar.login=${SONAR_TOKEN}"
-                bat 'C:/windows/System32/config/systemprofile/AppData/Local/Jenkins/.jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube_Scanner/bin/sonar-scanner -Dsonar.projectKey=JothiShivani_maven-simple -Dsonar.organization=jothishivani -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=4151a4ab60add91278cab823577ffd2f13f14fac -Dsonar.exclusion=**/*.java -Dsonar.java.binaries=target/classes'
+                bat "${scannerHome}/bin/sonar-scanner \
+                -Dsonar.projectKey=JothiShivani_maven-simple \
+                -Dsonar.organization=jothishivani \
+                -Dsonar.host.url=https://sonarcloud.io \
+                -Dsonar.login=${SONAR_TOKEN} \
+                -Dsonar.exclusion=**/*.java \
+                -Dsonar.java.binaries=target/classes"
 
                 }
             }
@@ -165,7 +171,6 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image using the Dockerfile
-                    bat 'cd..'
                     bat 'docker build -t %DOCKER_IMAGE% .'
                 }
             }
