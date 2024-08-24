@@ -155,7 +155,7 @@ pipeline {
                 //     -Dsonar.organization=jothishivani \
                 //     -Dsonar.host.url=https://sonarcloud.io \
                 //     -Dsonar.login=${SONAR_TOKEN}"
-                bat "mvn clean install"
+                bat "${scannerHome}"
                 }
             }
         }
