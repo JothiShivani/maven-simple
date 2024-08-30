@@ -151,6 +151,14 @@ pipeline {
             steps{
                 bat 'mvn test'
             }
+            post {
+                always {
+                    // Archive test results
+                    junit '**/target/surefire-reports/*.xml'
+                    // Archive the JAR file produced by the build
+                    archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true
+                }
+            }
         }
         
         stage('Run SonarCloud') {
