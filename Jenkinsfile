@@ -146,6 +146,12 @@ pipeline {
                 bat 'mvn clean install'
             }
         }
+
+        stage('testing mvn'){
+            steps{
+                bat 'mvn test'
+            }
+        }
         
         stage('Run SonarCloud') {
             steps {
